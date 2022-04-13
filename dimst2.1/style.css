@@ -1,0 +1,111 @@
+ul#menu {               
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;   
+}
+
+li.menu {
+  float: left;      
+}
+
+li.menu a {       
+  display: block;
+  color: white;       
+  text-align: center; 
+  padding: 14px 16px; 
+  text-decoration: none;  
+}
+
+li.m a:hover:not(.active) {   
+  background-color: #111;
+}
+
+.active {
+  background-color: red;    
+}
+
+.title{
+	color:#292b2a;
+	padding-top:25px;  
+	text-align:center; 
+	width:80%;         
+	display: block;    
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom:2px solid red;  
+	
+}
+
+.text{
+	color:#292b2a;   
+	font-size:25px;   
+	
+}
+.textDiv{	          
+	width:80%;          
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+#zoomPic{        
+	display: block;      
+	margin-left: auto;
+	margin-right: auto;
+	width:80%;
+	padding-top:50px;   
+}
+#zoomPic:hover {        
+  transform: scale(1.2);   
+}
+
+
+ul#cont{                  
+	width:80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	list-style-type: square;
+	color: red;
+}
+
+
+
+
+table {
+	padding-top:25px;
+	border-collapse: collapse;
+	width:80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+th,td{
+	color:#292b2a;
+	font-size:25px;
+	border:1px solid black;
+	padding:10px;
+}
+th{
+	font-family:bold;
+	background-color:lightgray;
+}
+
+
+
+#logIn,#signUp{
+	margin-left: auto;
+	margin-right: auto;
+	width:20%;
+	padding:30px;
+	border:2px solid black;
+	border-radius:25px;
+	background-color:lightgray;
+}
+#signUp input:not(.gender):not(#getMail){    
+	width:100%;
+	
+}

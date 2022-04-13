@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script>
+		function signUp(){
+			var name=document.getElementById("name").value;	         
+			var surname=document.getElementById("surname").value;
+			var mail=document.getElementById("mail").value;
+			var phone=document.getElementById("phone").value;
+			var usr=document.getElementById("usr").value;
+			var pwd=document.getElementById("pwd").value;
+			var confPwd=document.getElementById("confPwd").value;
+			if (document.getElementById("Mr").checked==true)
+				var gender="Mr";
+			else
+				var gender="Mrs";
+			if (document.getElementById("getMail").checked==true)
+				var getMail="yes";
+			else
+				var getMail="no";	
+			if (name=="" || surname=="" || phone=="" || mail=="" || usr=="" || pwd=="" || confPwd=="")
+				alert("Συμπληρώστε όλα τα πεδία");
+			else if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+|[A-Z]|[a-z]|[α-ω]|[Α-Ω]/.test(phone)||phone.length!=10)
+				alert ("Το τηλέφωνο πρέπει να έχει 10 ψηφία");
+			else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pwd) || pwd.length<8)
+				alert("Ο κωδικός πρέπει να είναι αποτελείται τουλάχιστον από 8 χαρακτήρες και να περιέχει ένα σύμβολο");
+			else if(pwd!=confPwd)
+				alert("Οι κωδικοί πρέπει να είναι ίδιοι");
+			else if(!/\w+@\w+\.(gr|com)/.test(mail))
+				alert("To email δεν είναι έγκυρο")
+			else{
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					if (this.responseText==1)
+							alert("Το όνομα χρήστη χρησιμοποιείται");
+						else{
+							var xhttp = new XMLHttpRequest();   //
+							xhttp.onreadystatechange = function() {
+							if (this.readyState == 4 && this.status == 200) {
+								alert(this.responseText);
+								discon();           
+								window.location = "log-in.html";    
+							}
+							};
+							xhttp.open("GET", "newUsr.php?name="+name+"&surname="+surname+"&gender="+gender
+							+"&mail="+mail+"&phone="+phone+"&usr="+usr+"&pwd="+pwd+"&getMail="+getMail, true);
+							xhttp.send(); 
+						}	
+				}
+				};
+			xhttp.open("GET", "checkIfUsrExists.php?usr="+usr, true);
+			xhttp.send();
+			}
+	}
+	
+	function radioClick(x){
+		if (x=="Mr")
+			document.getElementById("Mrs").checked=false;
+		else  
+			document.getElementById("Mr").checked=false;
+	}
+	function discon(){ 
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					location.reload();
+					
+			}
+			};
+			xhttp.open("GET", "disconnect.php", true);
+			xhttp.send();
+		}
+	</script>
+</head>
+<body>
+
+	<ul id="menu">
+	  <li class="menu"><a class="active" href="index.html">Κεντρική</a></li>
+	  <li class="menu"><a href="content.html">Περιεχόμενο</a></li>
+	  <li class="menu"><a href="speakers.html">Ομιλητές</a></li>
+	  <li class="menu"><a href="program.html">Πρόγραμμα</a></li>
+	  <li class="menu"><a href="location.html">Tοποθεσία</a></li>
+	  <li class="menu"><a href="sign-up.html">Εγγραφείτε</a></li>
+	  <li class="menu"><a href="log-in.html">Log in</a></li>
+	</ul>
+	
+	<h1 class="title">ΕΓΓΡΑΦΕΙΤΕ</h1>
+	
+	<div id="signUp">
+		Όνομα :</br> <input id="name" type="text"/></br></br>
+		Επώνυμο :</br> <input id="surname" type="text"/></br></br>
+		
+		<input type="radio" onclick="radioClick(this.value)" checked="checked" id="Mr" class="gender" value="Mr">
+		<label for="Mr">Mr</label><br>
+		<input type="radio" onclick="radioClick(this.value)" id="Mrs" class="gender" value="Mrs">
+		<label for="Mrs">Mrs</label></br></br>
+		
+		E-mail :</br> <input id="mail" type="text"/></br></br>
+		Τηλέφωνο :</br> <input id="phone" type="text"/></br></br>
+		Username :</br> <input id="usr" type="text"/></br></br>
+		Pasword :</br> <input id="pwd" type="password"/></br></br>
+		Confirm pasword </br> <input id="confPwd" type="password"/></br></br>
+		
+		<input type="checkbox" id="getMail" name="getMail">
+		<label for="getMail"> Να λαμβάνω ενημερωτικά E-mail</label><br></br>
+		<input type="button" id="okBtn" onclick="signUp()" value="ΑΠΟΣΤΟΛΗ"/> 
+		
+	</div>
+</body>
+</html>

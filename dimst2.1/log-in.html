@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	
+	<script>
+		
+		function logIn(){
+
+			var usr=document.getElementById("usr").value;
+			var pwd=document.getElementById("pwd").value;
+		
+				
+			if (usr=="" || pwd=="")
+				alert("Συμπληρώστε όλα τα πεδία");
+			else{
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					if (this.responseText!=0)
+						document.getElementById("logIn").innerHTML=this.responseText;  
+					else
+						alert("Τα στοιχεία είναι λανθασμένα");
+				}
+				};
+				xhttp.open("GET", "checkUser.php?usr="+usr+"&pwd="+pwd, true); 
+				xhttp.send();
+			}
+		}
+		function checkIfCon(){       
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					if (this.responseText!=""){      
+						document.getElementById("logIn").innerHTML=this.responseText;    
+						document.getElementById("tl").innerHTML="EIΣΤΕ ΣΥΝΔΕΔΕΜΕΝΟΣ";    
+					}
+				}
+				};
+				xhttp.open("GET", "checkIfCon.php", true);
+				xhttp.send();
+		}
+		function discon(){       
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				
+				location.reload(true);	
+					
+			}
+			};
+			xhttp.open("GET", "disconnect.php", true);
+			xhttp.send();
+		}
+		
+	</script>
+</head>
+<body onload="checkIfCon()">
+
+	<ul id="menu">
+	  <li class="menu"><a class="active" href="index.html">Κεντρική</a></li>
+	  <li class="menu"><a href="content.html">Περιεχόμενο</a></li>
+	  <li class="menu"><a href="speakers.html">Ομιλητές</a></li>
+	  <li class="menu"><a href="program.html">Πρόγραμμα</a></li>
+	  <li class="menu"><a href="location.html">Tοποθεσία</a></li>
+	  <li class="menu"><a href="sign-up.html">Εγγραφείτε</a></li>
+	  <li class="menu"><a href="log-in.html">Log in</a></li>
+	</ul>
+
+	<h1 class="title" id="tl">ΣΥΝΔΕΘΕΙΤΕ</h1>
+
+	<div id="logIn">
+			Username :</br> <input id="usr" type="text"/></br></br>
+			Pasword :</br> <input id="pwd" type="password"/></br></br>
+			<input type="button" id="okBtn" onclick="logIn()" value="ΣΥΝΔΕΘΕΙΤΕ"/>
+	</div>
+
+</body>
+</html>

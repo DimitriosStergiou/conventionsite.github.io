@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<script>
+			function logIn(){
+
+				var usr=document.getElementById("usr").value;
+				var pwd=document.getElementById("pwd").value;
+			
+					
+				if (usr=="" || pwd=="")
+					alert("Συμπληρώστε όλα τα πεδία");
+				else{
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						if(this.responseText==0)
+							alert("Τα στοιχεία είναι λανθασμένα");
+						else{
+							document.getElementById("tblDiv").innerHTML=(this.responseText); 
+							document.getElementById("logIn").style.display="none";
+						}
+						
+					}
+					};
+					xhttp.open("GET", "checkAdmin.php?usr="+usr+"&pwd="+pwd, true); 
+					xhttp.send();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		
+		<h1 class="title" id="tl">ΣΕΛΙΔΑ ΔΙΑΧΕΙΡIΣΤΗ</h1>
+		<div id="logIn">
+			Username :</br> <input id="usr" type="text"/></br></br>
+			Pasword :</br> <input id="pwd" type="password"/></br></br>
+			<input type="button" id="okBtn" onclick="logIn()" value="ΣΥΝΔΕΘΕΙΤΕ"/>
+		</div>
+		<div id="tblDiv"></div>
+	</body>
+</html>
